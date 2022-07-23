@@ -8,10 +8,13 @@ const sagaMiddleware = createSagaMiddleware();
 let middleware = applyMiddleware(sagaMiddleware);
 
 // eslint-disable-next-line no-underscore-dangle
-const initialState = {};
+const initialState = {
+};
 
-const store = createStore(reducers, initialState, middleware);
+middleware = composeWithDevTools(middleware);
+
+const Store = createStore(reducers, initialState, middleware);
 
 sagaMiddleware.run(rootSagas);
 
-export default store;
+export default Store;

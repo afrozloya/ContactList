@@ -1,26 +1,21 @@
 import React from 'react'
-import ContactCards from '../ContactCards'
-import axios from 'axios'
+import ContactCards from './ContactCards'
 import { useEffect, useState } from 'react'
 import { ASC, DAYS_UNTIL_BD, FIRST_NAME, LAST_NAME, LIST_USER_URL } from '../../constants/AppConstants';
-import Loader from '../Loader';
-import { compareFirstName, sortContacts } from '../../utils/MyUtils';
+import Loader from '../../components/Loader';
+import { sortContacts } from '../../utils/MyUtils';
 import { MDBCol, MDBInput, MDBRadio, MDBRow } from 'mdb-react-ui-kit';
 
-
-export default function App() {
-
-  // const url = LIST_USER_URL;
-  const url = "data.json";
-  const [loading, setLoading] = useState(false)  
+function Contact(props) {
+  const {loading, orignalContactList} = props;
   const [filteredData, setFilteredData] = useState([])
-  const [orignalContactList, setOrignalContactList] = useState([])
   const [searchFilter, setSearchFilter] = useState();
   const [sortOrder, setSortOrder] = useState(ASC);
   const [sortColumn, setSortColumn] = useState(FIRST_NAME);
- 
+  console.log(orignalContactList)
+
   useEffect(() => {
-    getData();
+    props.fetchContacts();
   }, []);
 
   useEffect(() => {
@@ -36,20 +31,11 @@ export default function App() {
     setFilteredData([...res]);
   }, [searchFilter, sortColumn, sortOrder])
 
-  const getData = async () => {
-    try {
-      setLoading(true);
-      const users = await axios.get(url);
-      const res = users.data.results;
-      setOrignalContactList(res)
-      sortContacts(res, sortColumn, sortOrder);
-      setFilteredData([...res])
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  useEffect( () => {
+    console.log(orignalContactList)
+    sortContacts(orignalContactList, sortColumn, sortOrder);
+    setFilteredData([...orignalContactList])
+  }, [loading, orignalContactList])
 
   const onChangeSearchFilter = (event) => {
     setSearchFilter(event.target.value);
@@ -61,13 +47,6 @@ export default function App() {
     console.log(event.target.value)
     setSortColumn(event.target.value);
   }
-
-  // const onChangeFormData = (event) => {
-  //   setFormData({
-  //     ...formData,
-  //     [event.target.name]: event.target.value
-  //   })
-  // }
 
   if (loading) {
     return (
@@ -97,8 +76,10 @@ export default function App() {
       </section>
       <section>
         {filteredData?.length < 1 && <h1>No Matching Data</h1>}
-        <ContactCards contacts={filteredData} />
+        <ContactCards deleteContact={props.deleteContact} contacts={filteredData} />
       </section>
     </main>
   )
 }
+
+export default Contact

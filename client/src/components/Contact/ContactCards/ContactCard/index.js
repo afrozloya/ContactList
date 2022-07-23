@@ -1,19 +1,24 @@
-import React from 'react';
-import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow } from 'mdb-react-ui-kit';
-import { ICON_EMAIL, ICON_LOCATION, ICON_PHONE, IMG_ALT } from '../../../constants/AppConstants';
-import AppIcon from '../../AppIcon';
+import React, { useState } from 'react';
+import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBCardFooter, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+import { ICON_EMAIL, ICON_LOCATION, ICON_PHONE, IMG_ALT } from '../../../../constants/AppConstants';
+import AppIcon from '../../../AppIcon';
 import "./index.css"
-import Mailto from '../../MailTo';
+import Mailto from '../../../MailTo';
+import Confirm from '../../../Modal/Confirm';
 
 export default function ContactCard(props) {
     const { contact } = props;
+    const [toggleConfirmShow, setToggleConfirmShow] = useState(false);
+    const onToggleConfirmShow = () => {
+        setToggleConfirmShow(!toggleConfirmShow);
+    }
     const name = `${contact?.name?.title} ${contact?.name?.first} ${contact?.name?.last}`;
     const borderColorClass = contact?.gender==="male" ? "male-image-border" : "female-image-border";
     return (
         <MDBCol>
             <MDBCard className='h-100 p-3 mycard'>
                 <MDBCardImage                    
-                    className={'rounded-circle h-75 w-75 image-border ' + borderColorClass }
+                    className={'rounded-circle h-50 w-50 card-image ' + borderColorClass }
                     src={contact.picture.large}
                     alt={IMG_ALT}
                     position='top'
@@ -35,6 +40,17 @@ export default function ContactCard(props) {
                     </MDBRow> 
                     </MDBCardText>
                 </MDBCardBody>
+                <MDBCardFooter className='text-center'>
+                    {toggleConfirmShow && <Confirm deleteContact={()=>props.deleteContact(contact.uid)} 
+                            toggleShow={toggleConfirmShow} 
+                            onToggleConfirmShow={onToggleConfirmShow} />}
+                    <MDBBtn color='primary' floating size='lg' tag='a'>
+                        <MDBIcon fas icon="info" />
+                    </MDBBtn>
+                    <MDBBtn  className='mx-3' color='danger' floating size='lg' tag='a'>
+                        <MDBIcon onClick={onToggleConfirmShow} fas icon="trash" />
+                    </MDBBtn>
+                </MDBCardFooter>
             </MDBCard>
         </MDBCol>
     );

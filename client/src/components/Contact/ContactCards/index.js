@@ -7,8 +7,7 @@ export default function ContactCards(props) {
   return (
     <MDBRow className='row-cols-1 row-cols-md-4 g-4'>
       {contacts?.map((contact, index) => (
-        //afroz no index
-        <ContactCard contact={contact} key={index} />
+        <ContactCard deleteContact={props.deleteContact} contact={contact} key={contact.uid} />
       ))}
     </MDBRow>
   );
