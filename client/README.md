@@ -12,6 +12,11 @@ In the client directory under project directory, you can run:
 
 ### `npm start`
 
+Creating and running docker image, in the client directory under project directory, you can run:
+
+### `docker-compose -f docker-compose-local.yml up -d`
+
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
