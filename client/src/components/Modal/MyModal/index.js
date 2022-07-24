@@ -9,42 +9,34 @@ import { MDBBtn,
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
 
-export default function Confirm(props) {
+export default function MyModal(props) {
 
-  const {toggleShow, onToggleConfirmShow} = props;
+  const {toggleShow, onToggleModalShow, cancel} = props;
 
-  const onToggleShow = () => onToggleConfirmShow();
+  const onToggleShow = () => onToggleModalShow();
 
-  const APP_NAME = "Contact App";
-
-  const MSG = "Are you sure, you want to delete!";
+  const APP_NAME = props.title || "Contact App";
 
   const onSetShow = (e) => {
     if(!e && toggleShow){
-      onToggleConfirmShow();
+      onToggleModalShow();
     }
   }
 
-  const onConfirm = () => {
-    props.deleteContact();
-    onToggleConfirmShow();
-  }
-
-  return (
+  return (    
     <>
     <MDBModal show={toggleShow} setShow={onSetShow} tabIndex='-1'>
-      <MDBModalDialog>
+      <MDBModalDialog className='mw-100 w-50'>
         <MDBModalContent>
           <MDBModalHeader>
             <MDBModalTitle>{APP_NAME}</MDBModalTitle>
             <MDBBtn className='btn-close' color='none' onClick={onToggleShow}></MDBBtn>
           </MDBModalHeader>
-          <MDBModalBody>{MSG}</MDBModalBody>
+          <MDBModalBody>{props.children}</MDBModalBody>
           <MDBModalFooter>
-            <MDBBtn color='muted' onClick={onToggleShow}>
-              Cancel
-            </MDBBtn>
-            <MDBBtn onClick={onConfirm} color='danger'>Delete</MDBBtn>
+            { cancel && <MDBBtn color='muted' onClick={onToggleShow}>
+                Cancel
+            </MDBBtn>}
           </MDBModalFooter>
         </MDBModalContent>
       </MDBModalDialog>

@@ -41,7 +41,7 @@ const contact = (state = defaultState, action) => {
     case FETCH_CONTACT_SUCCESS:
       return {
         contacts: action.payload.contacts.map(c1 => {
-          c1["uid"] = c1["email"];
+          c1['uid'] = c1['login']['uuid'];
           return c1;
         }),
         loading: false
