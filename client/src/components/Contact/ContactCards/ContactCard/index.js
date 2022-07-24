@@ -32,32 +32,30 @@ export default function ContactCard(props) {
                 />
                 <MDBCardBody>
                     <MDBCardTitle>{name}</MDBCardTitle>
-                    <MDBCardText>
-                        <MDBRow className='mt-3'>
-                            <MDBCol sm="2"><AppIcon iconType={ICON_EMAIL} /></MDBCol>
-                            <MDBCol><Mailto email={contact.email} /></MDBCol>
-                        </MDBRow>
-                        <MDBRow className='my-2'>
-                            <MDBCol sm="2"><AppIcon iconType={ICON_PHONE} /></MDBCol>
-                            <MDBCol>{contact.cell}</MDBCol>
-                        </MDBRow>
-                        <MDBRow>
-                            <MDBCol sm="2"><AppIcon iconType={ICON_LOCATION} /></MDBCol>
-                            <MDBCol>{contact.location.city}</MDBCol>
-                        </MDBRow>
-                    </MDBCardText>
+                    <MDBRow className='mt-3'>
+                        <MDBCol sm="2"><AppIcon iconType={ICON_EMAIL} /></MDBCol>
+                        <MDBCol><Mailto email={contact.email} /></MDBCol>
+                    </MDBRow>
+                    <MDBRow className='my-2'>
+                        <MDBCol sm="2"><AppIcon iconType={ICON_PHONE} /></MDBCol>
+                        <MDBCol>{contact.cell}</MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol sm="2"><AppIcon iconType={ICON_LOCATION} /></MDBCol>
+                        <MDBCol>{contact.location.city}</MDBCol>
+                    </MDBRow>
                 </MDBCardBody>
                 <MDBCardFooter className='text-center'>
                     {toggleConfirmShow && <Confirm deleteContact={() => props.deleteContact(contact.uid)}
                         toggleShow={toggleConfirmShow}
                         onToggleConfirmShow={onToggleConfirmShow} />}
                     {toggleMoreShow &&
-                        <MyModal 
-                            toggleShow={toggleMoreShow} 
+                        <MyModal
+                            toggleShow={toggleMoreShow}
                             onToggleModalShow={onToggleMoreShow}
                             cancel="true"
                             title={name}
-                            >
+                        >
                             <ContactDetails contact={contact} />
                         </MyModal>}
                     <MDBBtn color='primary' floating size='lg' tag='a'>

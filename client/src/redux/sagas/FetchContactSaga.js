@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { takeLatest, put } from 'redux-saga/effects';
+import { LIST_USER_URL } from '../../constants/AppConstants';
 import { FETCH_CONTACT, FETCH_CONTACT_SUCCESS } from '../actionTypes/ContactActionTypes';
 // import RestClient from '../Utils/RestClient';
 
@@ -8,8 +9,8 @@ function* fetchContactSaga() {
   //   url: `base-url/${action.payload.queryParam}`,
   // };
   // const response = yield call(RestClient.get, requestObject);
-  // const url = LIST_USER_URL;
-  const url = "data.json";  
+  const url = LIST_USER_URL;
+  // const url = "data.json";  
   try {
     const users = yield axios.get(url);
     const contacts = users.data.results;
