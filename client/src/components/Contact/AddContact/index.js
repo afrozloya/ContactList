@@ -5,19 +5,22 @@ import {
   MDBInput,
   MDBBtn,
   MDBCheckbox,
-  MDBInputGroup
+  MDBInputGroup,
+  MDBCol,
+  MDBTypography,
+  MDBContainer
 } from 'mdb-react-ui-kit';
-import { nestedObjectSetter } from '../../../utils/MyUtils';
+import { calculateAge, nestedObjectSetter } from '../../../utils/MyUtils';
 import { random } from 'lodash';
 
 export default function AddContact(props) {
   const initData = {
     name: {
-      title:'',
+      title:'Mrs',
       first:'',
       last:'',
     },
-    gender:'',
+    gender:'female',
     location:{
        street:{
           number:'',
@@ -29,11 +32,6 @@ export default function AddContact(props) {
        postcode:'',
     },
     email:'',
-    login:{
-       uuid:'',
-       username:'',
-       password:'',
-    },
     dob:{
        date:'',
        age:''
@@ -44,18 +42,11 @@ export default function AddContact(props) {
     uid: random(10000000)
   }
   const [formValue, setFormValue] = useState({...initData});
-  const [valid, setValid] = useState(false);
-
 
   const onChange = (e) => {     
     nestedObjectSetter(formValue,e.target.name, e.target.value);   
     setFormValue({ ...formValue });
   };
-
-  const onAbc = (e) => {     
-    console.log(e);
-  };
-
 
   const onSubmitClick = (e) => {
     let isValid = true;
@@ -65,6 +56,7 @@ export default function AddContact(props) {
       if(!isValid) break;
     }
     if(isValid){
+      formValue.dob.age = calculateAge(formValue.dob.date);
       props.addContact(formValue);
       props.onToggleModalShow();
     }
@@ -74,9 +66,21 @@ export default function AddContact(props) {
     setFormValue({ ...initData });
   }
 
+  const TITLES = ["Ms", "Mrs", "Mr"];
+  const GENDERS = [{name: "Male",value:"male"}, {name: "Female",value:"female"}];
+  const COUNTRIES = [{name: "India",value:"IN"}, {name: "Israil",value:"IL"}, {name: "UAE",value:"AE"}];
   
   return (
+    <MDBContainer>
     <MDBValidation onSubmit={onSubmitClick}  className='row g-3'>
+      
+      <MDBTypography className='mt-4 mb-0' variant='h5'>Name</MDBTypography>
+      
+      <MDBCol className='col-md-4'>
+      <select onChange={onChange} name='name.title' value={formValue.name.title} className='form-control'>
+        {TITLES.map(title => <option key={title}>{title}</option>)}
+      </select>
+      </MDBCol>
       <MDBValidationItem className='col-md-4'>
         <MDBInput
           value={formValue.name.first}
@@ -97,6 +101,40 @@ export default function AddContact(props) {
           label='Last name'
         />
       </MDBValidationItem>
+
+      <MDBTypography className='mt-4 mb-0' variant='h5'>Personal Information</MDBTypography>
+      
+      <MDBValidationItem className='col-md-4'>        
+        <MDBInputGroup textBefore='Gender'>
+          <select onChange={onChange} name='gender' value={formValue.gender} className='form-control'>
+            {GENDERS.map(gender => <option key={gender.value} value={gender.value}>{gender.name}</option>)}
+          </select>
+        </MDBInputGroup>
+      </MDBValidationItem>
+
+      <MDBValidationItem className='col-md-4'>        
+      <MDBInputGroup textBefore='Nationality'>
+        <select onChange={onChange} name='nat' value={formValue.nat} className='form-control'>
+          {COUNTRIES.map(country => <option key={country.value} value={country.value}>{country.name}</option>)}
+        </select>
+      </MDBInputGroup>
+      </MDBValidationItem>
+
+
+      <MDBValidationItem className='col-md-4'>
+        <MDBInput
+          value={formValue.dob.date}
+          name='dob.date'
+          onChange={onChange}
+          id='dob.date'
+          type="date"
+          required
+          label='DOB'
+        />
+      </MDBValidationItem>
+
+      <MDBTypography className='mt-4 mb-0' variant='h5'>Contact Information</MDBTypography>
+
       <MDBValidationItem feedback='Please choose a email.' invalid className='col-md-4'>        
         <MDBInputGroup textBefore='@'>
           <input
@@ -111,7 +149,54 @@ export default function AddContact(props) {
           />
         </MDBInputGroup>
       </MDBValidationItem>
-      <MDBValidationItem className='col-md-6' feedback='Please provide a valid city.' invalid>
+
+      <MDBValidationItem className='col-md-4'>
+        <MDBInput
+          value={formValue.phone}
+          name='phone'
+          onChange={onChange}
+          type="tel"
+          id='phone'
+          required
+          label='Phone'
+        />
+      </MDBValidationItem>
+
+      <MDBValidationItem className='col-md-4'>
+        <MDBInput
+          value={formValue.cell}
+          name='cell'
+          onChange={onChange}
+          id='cell'
+          type="tel"
+          required
+          label='Cell'
+        />
+      </MDBValidationItem>
+
+      <MDBTypography className='mt-4 mb-0' variant='h5'>Address</MDBTypography>
+      <MDBValidationItem className='col-md-4' feedback='Please provide a valid street number.' invalid>
+        <MDBInput
+          type="number"
+          value={formValue.location.street.number}
+          name='location.street.number'
+          onChange={onChange}
+          id='location.street.number'
+          label='Street Number'
+        />
+      </MDBValidationItem>
+      <MDBValidationItem className='col-md-8' feedback='Please provide a valid street name.' invalid>
+        <MDBInput
+          value={formValue.location.street.name}
+          name='location.street.name'
+          onChange={onChange}
+          id='location.street.name'
+          required
+          label='Street Name'
+        />
+      </MDBValidationItem>
+
+      <MDBValidationItem className='col-md-3' feedback='Please provide a valid city.' invalid>
         <MDBInput
           value={formValue.location.city}
           name='location.city'
@@ -121,7 +206,27 @@ export default function AddContact(props) {
           label='City'
         />
       </MDBValidationItem>
-      <MDBValidationItem className='col-md-6' feedback='Please provide a valid zip.' invalid>
+
+      <MDBValidationItem className='col-md-3' feedback='Please provide a valid state name.' invalid>
+        <MDBInput
+          value={formValue.location.state}
+          name='location.state'
+          onChange={onChange}
+          id='location.state'
+          required
+          label='State'
+        />
+      </MDBValidationItem>
+
+      <MDBValidationItem className='col-md-3'>        
+      <MDBInputGroup textBefore='Country'>
+        <select onChange={onChange} name='location.country' value={formValue.location.country} className='form-control'>
+          {COUNTRIES.map(country => <option key={country.value} value={country.value}>{country.name}</option>)}
+        </select>
+      </MDBInputGroup>
+      </MDBValidationItem>
+
+      <MDBValidationItem className='col-md-3' feedback='Please provide a valid zip.' invalid>
         <MDBInput
           value={formValue.location.postcode}
           name='location.postcode'
@@ -131,6 +236,7 @@ export default function AddContact(props) {
           label='Zip'
         />
       </MDBValidationItem>
+
       <MDBValidationItem className='col-12' feedback='You must agree before submitting.' invalid>
         <MDBCheckbox label='Agree to terms and conditions' id='invalidCheck' required />
       </MDBValidationItem>
@@ -139,5 +245,6 @@ export default function AddContact(props) {
         <MDBBtn  onClick={onResetClick}  color='warning' type='reset'>Reset</MDBBtn>
       </div>
     </MDBValidation>
+    </MDBContainer>
   );
 }

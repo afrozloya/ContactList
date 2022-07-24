@@ -7,6 +7,7 @@ import Mailto from '../../../MailTo';
 import Confirm from '../../../Modal/Confirm';
 import MyModal from '../../../Modal/MyModal';
 import ContactDetails from '../ContactDetails';
+import unknownImage from '../../../../assets/images/unknown.png';
 
 export default function ContactCard(props) {
     const { contact } = props;
@@ -25,7 +26,7 @@ export default function ContactCard(props) {
             <MDBCard className='h-100 p-3 mycard'>
                 <MDBCardImage
                     className={'rounded-circle h-50 w-50 card-image ' + borderColorClass}
-                    src={contact?.picture?.medium}
+                    src={contact?.picture?.medium || unknownImage}
                     alt={IMG_ALT}
                     position='top'
                 />

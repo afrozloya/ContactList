@@ -38,6 +38,13 @@ export function compareFirstName( a, b ) {
     return diffDays;
   }
 
+  export function calculateAge(dateStr){
+    const dob = new Date(dateStr);
+    var diff_ms = Date.now() - dob.getTime();
+    var tempDate = new Date(diff_ms);   
+    return Math.abs(tempDate.getUTCFullYear() - 1970);
+  }
+
   export function sortContacts(contacts, filedName, sortOrder) {
     if(filedName===LAST_NAME){
       contacts.sort(compareLastName);

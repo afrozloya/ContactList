@@ -1,5 +1,6 @@
 import React from 'react';
 import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import unknownImage from '../../../../assets/images/unknown.png';
 
 export default function ContactDetails(props) {
   const {contact} = props;  
@@ -12,7 +13,7 @@ export default function ContactDetails(props) {
     <MDBCard>
       <MDBRow className='g-0'>
         <MDBCol md='6'>
-          <MDBCardImage className='w-100 h-100' src={contact?.picture?.large}  alt='...' fluid />
+          <MDBCardImage className='w-100 h-100' src={contact?.picture?.large || unknownImage}  alt='...' fluid />
         </MDBCol>
         <MDBCol md='6'>
           <MDBCardBody>
