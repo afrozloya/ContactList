@@ -3,12 +3,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
-In the project directory, first time to install dependencies, you can run:
+In the client directory under project directory, first time to install dependencies, you can run:
 
 ### `npm install`
 
 
-In the project directory, you can run:
+In the client directory under project directory, you can run:
 
 ### `npm start`
 
