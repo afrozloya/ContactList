@@ -1,0 +1,13 @@
+version: '3'
+services: 
+    contactlist-frontend:
+        build: 
+            context: .
+            dockerfile: Dockerfile.dev
+        command: npm run start
+        container_name: contactlist-frontend
+        ports:
+            - "3000:3000"        
+        volumes: 
+            - ./:/contactlist-frontend
+            - /contactlist-frontend/node_modules
