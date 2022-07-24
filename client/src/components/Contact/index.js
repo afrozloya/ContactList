@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react'
 import { ASC, DAYS_UNTIL_BD, FIRST_NAME, LAST_NAME, LIST_USER_URL } from '../../constants/AppConstants';
 import Loader from '../../components/Loader';
 import { sortContacts } from '../../utils/MyUtils';
-import { MDBCol, MDBInput, MDBRadio, MDBRow } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBCol, MDBInput, MDBRadio, MDBRow } from 'mdb-react-ui-kit';
+import MyModal from '../Modal/MyModal';
+import AddContact from './AddContact'
 
 function Contact(props) {
   const {loading, orignalContactList} = props;
@@ -12,8 +14,8 @@ function Contact(props) {
   const [searchFilter, setSearchFilter] = useState();
   const [sortOrder, setSortOrder] = useState(ASC);
   const [sortColumn, setSortColumn] = useState(FIRST_NAME);
-  console.log(orignalContactList)
-
+  const [toggleModalShow, setToggleModalShow ] = useState(false);
+  const ADD_CONTACT_BUTTON = "Add New Contact";
   useEffect(() => {
     props.fetchContacts();
   }, []);
@@ -32,7 +34,6 @@ function Contact(props) {
   }, [searchFilter, sortColumn, sortOrder])
 
   useEffect( () => {
-    console.log(orignalContactList)
     sortContacts(orignalContactList, sortColumn, sortOrder);
     setFilteredData([...orignalContactList])
   }, [loading, orignalContactList])
@@ -44,8 +45,10 @@ function Contact(props) {
     setSortOrder(event.target.value);
   }
   const onChangeSortColumn = (event) => {
-    console.log(event.target.value)
     setSortColumn(event.target.value);
+  }
+  const onToggleModalShow = () => {
+    setToggleModalShow(!toggleModalShow);
   }
 
   if (loading) {
@@ -71,6 +74,22 @@ function Contact(props) {
         <MDBCol>
           <MDBRadio onChange={onChangeSortOrder} defaultChecked name='sortOrder' id='sortOrderAsc' value='asc' label='Asc' inline />
           <MDBRadio onChange={onChangeSortOrder} name='sortOrder' id='sortOrderDesc' value='desc' label='Desc' inline />
+        </MDBCol>        
+        <MDBCol>
+        {
+          toggleModalShow &&
+        <MyModal
+                className="mymodal"
+                toggleShow={toggleModalShow}
+                onToggleModalShow={onToggleModalShow}
+                cancel="true"
+                title={ADD_CONTACT_BUTTON}
+              >
+                <AddContact onToggleModalShow={onToggleModalShow} addContact={props.addContact}/>
+        </MyModal>}
+        <MDBBtn  onClick={onToggleModalShow} className='mr-3 w-100' color='primary' size='lg' tag='a'>
+          {ADD_CONTACT_BUTTON}
+        </MDBBtn>          
         </MDBCol>        
       </MDBRow>
       </section>

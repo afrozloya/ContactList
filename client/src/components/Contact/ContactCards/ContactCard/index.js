@@ -25,7 +25,7 @@ export default function ContactCard(props) {
             <MDBCard className='h-100 p-3 mycard'>
                 <MDBCardImage
                     className={'rounded-circle h-50 w-50 card-image ' + borderColorClass}
-                    src={contact.picture.medium}
+                    src={contact?.picture?.medium}
                     alt={IMG_ALT}
                     position='top'
                 />

@@ -50,3 +50,27 @@ export function compareFirstName( a, b ) {
       contacts.reverse();
     }
   }
+
+  export function nestedObjectSetter(data, field, value) {
+    let schema = data; // a moving reference to internal objects within obj
+    const pList = field.split('.');
+    const len = pList.length;
+    for (var i = 0; i < len - 1; i++) {
+      var elem = pList[i];
+      if (!schema[elem]) schema[elem] = {}
+      schema = schema[elem];
+    }
+    schema[pList[len - 1]] = value;
+  }
+
+  export function nestedObjectGetter(data, field, value) {
+    let schema = data; // a moving reference to internal objects within obj
+    const pList = field.split('.');
+    const len = pList.length;
+    for (var i = 0; i < len - 1; i++) {
+      var elem = pList[i];
+      if (!schema[elem]) schema[elem] = {}
+      schema = schema[elem];
+    }
+    return schema[pList[len - 1]];
+  }

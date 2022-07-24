@@ -7,9 +7,11 @@ import {
   MDBCheckbox,
   MDBInputGroup
 } from 'mdb-react-ui-kit';
+import { nestedObjectSetter } from '../../../utils/MyUtils';
+import { random } from 'lodash';
 
-export default function AddContact() {
-  const [formValue, setFormValue] = useState({
+export default function AddContact(props) {
+  const initData = {
     name: {
       title:'',
       first:'',
@@ -38,21 +40,49 @@ export default function AddContact() {
     },
     phone:'',
     cell:'',
-    nat:''
-  });
+    nat:'',
+    uid: random(10000000)
+  }
+  const [formValue, setFormValue] = useState({...initData});
+  const [valid, setValid] = useState(false);
 
-  const onChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+
+  const onChange = (e) => {     
+    nestedObjectSetter(formValue,e.target.name, e.target.value);   
+    setFormValue({ ...formValue });
   };
 
+  const onAbc = (e) => {     
+    console.log(e);
+  };
+
+
+  const onSubmitClick = (e) => {
+    let isValid = true;
+    for (let i = 0; i < e.target.length; i++) {
+      const ele = e.target[i];
+      isValid = isValid && ele.validity.valid;
+      if(!isValid) break;
+    }
+    if(isValid){
+      props.addContact(formValue);
+      props.onToggleModalShow();
+    }
+  }
+
+  const onResetClick = (e) => {
+    setFormValue({ ...initData });
+  }
+
+  
   return (
-    <MDBValidation className='row g-3'>
+    <MDBValidation onSubmit={onSubmitClick}  className='row g-3'>
       <MDBValidationItem className='col-md-4'>
         <MDBInput
           value={formValue.name.first}
-          name='fname'
+          name='name.first'
           onChange={onChange}
-          id='validationCustom01'
+          id='name.first'
           required
           label='First name'
         />
@@ -60,20 +90,23 @@ export default function AddContact() {
       <MDBValidationItem className='col-md-4'>
         <MDBInput
           value={formValue.name.last}
-          name='lname'
+          name='name.last'
           onChange={onChange}
-          id='validationCustom02'
+          id='name.last'
           required
           label='Last name'
         />
       </MDBValidationItem>
-      <MDBValidationItem feedback='Please choose a username.' invalid className='col-md-4'>
+      <MDBValidationItem feedback='Please choose a email.' invalid className='col-md-4'>        
         <MDBInputGroup textBefore='@'>
           <input
-            type='text'
+            value={formValue.email}
+            onChange={onChange}
+            type='email'
             className='form-control'
-            id='validationCustomUsername'
-            placeholder='Username'
+            id='email'
+            name='email'
+            placeholder='EMail'
             required
           />
         </MDBInputGroup>
@@ -81,9 +114,9 @@ export default function AddContact() {
       <MDBValidationItem className='col-md-6' feedback='Please provide a valid city.' invalid>
         <MDBInput
           value={formValue.location.city}
-          name='city'
+          name='location.city'
           onChange={onChange}
-          id='validationCustom03'
+          id='location.city'
           required
           label='City'
         />
@@ -91,9 +124,9 @@ export default function AddContact() {
       <MDBValidationItem className='col-md-6' feedback='Please provide a valid zip.' invalid>
         <MDBInput
           value={formValue.location.postcode}
-          name='zip'
+          name='location.postcode'
           onChange={onChange}
-          id='validationCustom05'
+          id='location.postcode'
           required
           label='Zip'
         />
@@ -103,7 +136,7 @@ export default function AddContact() {
       </MDBValidationItem>
       <div className='col-12'>
         <MDBBtn className='mx-3' type='submit'>Submit</MDBBtn>
-        <MDBBtn color='warning' type='reset'>Reset</MDBBtn>
+        <MDBBtn  onClick={onResetClick}  color='warning' type='reset'>Reset</MDBBtn>
       </div>
     </MDBValidation>
   );
