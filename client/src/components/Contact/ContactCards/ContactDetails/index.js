@@ -1,11 +1,10 @@
 import React from 'react';
-import { MDBCard, MDBCardTitle, MDBCardText, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import unknownImage from '../../../../assets/images/unknown.png';
 
 export default function ContactDetails(props) {
   const {contact} = props;  
   const {location} = contact;
-  const name = `${contact?.name?.title} ${contact?.name?.first} ${contact?.name?.last}`;
   const address =location?.street?.number + " " + location?.street?.name + " " + location?.city + " " + 
     location?.state + " " + location?.country + " " + location?.postcode;
   const dob =   contact?.dob?.date?.substring(0,10);

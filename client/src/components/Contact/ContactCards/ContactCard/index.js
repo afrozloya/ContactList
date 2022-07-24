@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBCardFooter, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBCard, MDBCardImage, MDBCardBody, MDBCardTitle, MDBCol, MDBRow, MDBCardFooter, MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import { ICON_EMAIL, ICON_LOCATION, ICON_PHONE, IMG_ALT } from '../../../../constants/AppConstants';
 import AppIcon from '../../../AppIcon';
 import "./index.css"

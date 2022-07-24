@@ -1,7 +1,7 @@
 import React from 'react'
 import ContactCards from './ContactCards'
 import { useEffect, useState } from 'react'
-import { ASC, DAYS_UNTIL_BD, FIRST_NAME, LAST_NAME, LIST_USER_URL } from '../../constants/AppConstants';
+import { ASC, DAYS_UNTIL_BD, FIRST_NAME, LAST_NAME } from '../../constants/AppConstants';
 import Loader from '../../components/Loader';
 import { sortContacts } from '../../utils/MyUtils';
 import { MDBBtn, MDBCol, MDBInput, MDBRadio, MDBRow } from 'mdb-react-ui-kit';
@@ -9,7 +9,7 @@ import MyModal from '../Modal/MyModal';
 import AddContact from './AddContact'
 
 function Contact(props) {
-  const {loading, orignalContactList} = props;
+  const {loading, orignalContactList, fetchContacts} = props;
   const [filteredData, setFilteredData] = useState([])
   const [searchFilter, setSearchFilter] = useState();
   const [sortOrder, setSortOrder] = useState(ASC);
@@ -17,7 +17,7 @@ function Contact(props) {
   const [toggleModalShow, setToggleModalShow ] = useState(false);
   const ADD_CONTACT_BUTTON = "Add New Contact"; //afroz all these to constant
   useEffect(() => {
-    props.fetchContacts();
+    fetchContacts();
   }, []);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function Contact(props) {
   useEffect( () => {
     sortContacts(orignalContactList, sortColumn, sortOrder);
     setFilteredData([...orignalContactList])
-  }, [loading, orignalContactList])
+  }, [loading, orignalContactList, sortColumn, sortOrder])
 
   const onChangeSearchFilter = (event) => {
     setSearchFilter(event.target.value);
