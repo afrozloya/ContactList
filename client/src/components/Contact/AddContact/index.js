@@ -13,34 +13,36 @@ import {
 import { calculateAge, nestedObjectSetter } from '../../../utils/MyUtils';
 import { random } from 'lodash';
 
+const initData = {
+  name: {
+    title:'Mrs',
+    first:'',
+    last:'',
+  },
+  gender:'female',
+  location:{
+     street:{
+        number:'',
+        name:''
+     },
+     city:'',
+     state:'',
+     country:'',
+     postcode:'',
+  },
+  email:'',
+  dob:{
+     date:'',
+     age:''
+  },
+  phone:'',
+  cell:'',
+  nat:'',
+  uid: random(100000)
+}
+
 export default function AddContact(props) {
-  const initData = {
-    name: {
-      title:'Mrs',
-      first:'',
-      last:'',
-    },
-    gender:'female',
-    location:{
-       street:{
-          number:'',
-          name:''
-       },
-       city:'',
-       state:'',
-       country:'',
-       postcode:'',
-    },
-    email:'',
-    dob:{
-       date:'',
-       age:''
-    },
-    phone:'',
-    cell:'',
-    nat:'',
-    uid: random(10000000)
-  }
+ 
   const [formValue, setFormValue] = useState({...initData});
 
   const onChange = (e) => {     

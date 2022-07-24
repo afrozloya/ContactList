@@ -58,10 +58,10 @@ export default function ContactCard(props) {
                         >
                             <ContactDetails contact={contact} />
                         </MyModal>}
-                    <MDBBtn color='primary' floating size='lg' tag='a'>
+                    <MDBBtn color='primary' floating size='lg' >
                         <MDBIcon onClick={onToggleMoreShow} fas icon="info" />
                     </MDBBtn>
-                    <MDBBtn className='mx-3' color='danger' floating size='lg' tag='a'>
+                    <MDBBtn className='mx-3' color='danger' floating size='lg' >
                         <MDBIcon onClick={onToggleConfirmShow} fas icon="trash" />
                     </MDBBtn>
                 </MDBCardFooter>

@@ -15,7 +15,7 @@ function Contact(props) {
   const [sortOrder, setSortOrder] = useState(ASC);
   const [sortColumn, setSortColumn] = useState(FIRST_NAME);
   const [toggleModalShow, setToggleModalShow ] = useState(false);
-  const ADD_CONTACT_BUTTON = "Add New Contact";
+  const ADD_CONTACT_BUTTON = "Add New Contact"; //afroz all these to constant
   useEffect(() => {
     props.fetchContacts();
   }, []);
@@ -82,7 +82,7 @@ function Contact(props) {
                 className="mymodal"
                 toggleShow={toggleModalShow}
                 onToggleModalShow={onToggleModalShow}
-                cancel="true"
+                cancel
                 title={ADD_CONTACT_BUTTON}
               >
                 <AddContact onToggleModalShow={onToggleModalShow} addContact={props.addContact}/>

@@ -1,3 +1,8 @@
+import emailSvg from "../assets/images/email.svg";
+import locationSvg from "../assets/images/location.svg";
+import phoneSvg from "../assets/images/phone.svg";
+
+
 export const INCREASE_COUNTER = 'Increase Counter';
 export const DECREASE_COUNTER = 'Decrease Counter';
 
@@ -29,4 +34,8 @@ export const DAYS_UNTIL_BD = "daysUntilBD";
 export const MAIL_SUBJECT = "EMail from Contact List";
 export const MAIL_BODY = "Dear Sir/Mam, We tried calling you, kindly contact xxxx, have a nice day!";
 
-
+export const ICON_MAP = {
+  [ICON_EMAIL]:emailSvg,
+  [ICON_LOCATION]:locationSvg, 
+  [ICON_PHONE]: phoneSvg
+}; 

@@ -31,9 +31,6 @@ export default function Header() {
                 </MDBNavbarLink>
               </MDBNavbarItem>
               <MDBNavbarItem>
-                <MDBNavbarLink className='text-white' href='#'>Contact</MDBNavbarLink>
-              </MDBNavbarItem>
-              <MDBNavbarItem>
                 <MDBNavbarLink className='text-white' href='#'>About</MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
