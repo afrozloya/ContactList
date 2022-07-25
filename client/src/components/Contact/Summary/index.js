@@ -1,6 +1,5 @@
 import { MDBCol, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
 import React, { useEffect, useState } from 'react'
-import GaugeChart from "react-gauge-chart";
 import "./index.css"
 
 export default function Summary(props) {
