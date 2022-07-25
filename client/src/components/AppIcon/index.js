@@ -1,7 +1,7 @@
 import React from "react";
 import emailSvg from "../../assets/images/email.svg";
 import { ICON_MAP, IMG_ALT } from "../../constants/AppConstants";
-import "./index.scss"
+import "./index.css"
 
 export default function AppIcon(props) {
   const {iconType} =props;

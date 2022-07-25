@@ -7,6 +7,7 @@ import { sortContacts } from '../../utils/MyUtils';
 import { MDBBtn, MDBCol, MDBInput, MDBRadio, MDBRow } from 'mdb-react-ui-kit';
 import MyModal from '../Modal/MyModal';
 import AddContact from './AddContact'
+import Summary from './Summary';
 
 function Contact(props) {
   const {loading, orignalContactList, fetchContacts} = props;
@@ -58,8 +59,11 @@ function Contact(props) {
   }
 
   return (
-    <main className='container-fluid p-5'>
-      <section className="mb-3">
+    <main className='container-fluid px-5 py-3'>
+      <section>
+        <Summary contacts={filteredData}/>
+      </section>
+      <section className="my-3">
       <MDBRow>
       <MDBCol>
         <MDBInput onChange={onChangeSearchFilter} value={searchFilter} label='Search' id='searchFilter' type='text' />

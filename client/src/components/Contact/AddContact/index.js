@@ -15,11 +15,11 @@ import { random } from 'lodash';
 
 const initData = {
   name: {
-    title:'Mrs',
+    title:'Mr',
     first:'',
     last:'',
   },
-  gender:'female',
+  gender:'male',
   location:{
      street:{
         number:'',
@@ -27,7 +27,7 @@ const initData = {
      },
      city:'',
      state:'',
-     country:'',
+     country:'India',
      postcode:'',
   },
   email:'',
@@ -37,7 +37,7 @@ const initData = {
   },
   phone:'',
   cell:'',
-  nat:'',
+  nat:'IN',
   uid: random(100000)
 }
 
@@ -60,6 +60,7 @@ export default function AddContact(props) {
     if(isValid){
       formValue.dob.age = calculateAge(formValue.dob.date);
       props.addContact(formValue);
+      setFormValue({ ...initData });
       props.onToggleModalShow();
     }
   }
@@ -223,7 +224,7 @@ export default function AddContact(props) {
       <MDBValidationItem className='col-md-3'>        
       <MDBInputGroup textBefore='Country'>
         <select onChange={onChange} name='location.country' value={formValue.location.country} className='form-control'>
-          {COUNTRIES.map(country => <option key={country.value} value={country.value}>{country.name}</option>)}
+          {COUNTRIES.map(country => <option key={country.value} value={country.name}>{country.name}</option>)}
         </select>
       </MDBInputGroup>
       </MDBValidationItem>

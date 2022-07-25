@@ -2,7 +2,8 @@ import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT, FETCH_CONTACT, FETCH_CONTA
 
 const defaultState = {
   loading: false,
-  contacts: []
+  contacts: [],
+  summary: {}
 };
 
 const contact = (state = defaultState, action) => {
@@ -46,6 +47,7 @@ const contact = (state = defaultState, action) => {
         }),
         loading: false
       };
+          
     default:
       return state;
   }
