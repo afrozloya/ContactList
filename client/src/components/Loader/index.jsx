@@ -1,5 +1,16 @@
 import React from 'react';
-import Styles from './index.css';
+import './index.css';
 
-const Loader = () => <div className={Styles.loader} />;
+const Loader = () => (
+    <div class="backdrop">
+        <div class="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+)
+
 export default Loader;
