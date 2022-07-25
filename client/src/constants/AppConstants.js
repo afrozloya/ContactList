@@ -23,8 +23,8 @@ export const ICON_LOCATION = 'location';
 export const ICON_PHONE = 'phone';
 
 export const BASE_URL = "https://randomuser.me/api";
-// export const LIST_USER_URL = BASE_URL + "?results=10";
-export const LIST_USER_URL = "data.json";
+export const LIST_USER_URL = BASE_URL + "?results=10";
+// export const LIST_USER_URL = "data.json";
 
 export const ASC = "asc";
 export const DESC = "desc";
