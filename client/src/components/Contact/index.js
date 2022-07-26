@@ -65,21 +65,21 @@ function Contact(props) {
       </section>
       <section className="my-3">
       <MDBRow>
-      <MDBCol>
+      <MDBCol  md='3' className='my-2'>
         <MDBInput onChange={onChangeSearchFilter} value={searchFilter} label='Search' id='searchFilter' type='text' />
         </MDBCol>        
-        <MDBCol>
+        <MDBCol md='3'  className='my-2'>
         <select onChange={onChangeSortColumn}  value={sortColumn} name="sortColumn" className='form-control'>
           <option value={FIRST_NAME}>First Name</option>
           <option value={LAST_NAME}>Last Name</option>
           <option value={DAYS_UNTIL_BD}>Days Until Next Birtday</option>
         </select>
         </MDBCol>        
-        <MDBCol>
+        <MDBCol md='3'  className='my-2'>
           <MDBRadio onChange={onChangeSortOrder} defaultChecked name='sortOrder' id='sortOrderAsc' value='asc' label='Asc' inline />
           <MDBRadio onChange={onChangeSortOrder} name='sortOrder' id='sortOrderDesc' value='desc' label='Desc' inline />
         </MDBCol>        
-        <MDBCol>
+        <MDBCol md='3'  className='my-2'>
         {
           toggleModalShow &&
         <MyModal
